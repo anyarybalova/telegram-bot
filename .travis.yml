@@ -1,0 +1,23 @@
+sudo: required
+language: generic
+services:
+  - docker
+script:
+  - echo "skipping tests"
+
+after_success:
+  - docker build -t anyarybalova/telegram-bot .
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push anyarybalova/telegram-bot
+
+deploy:
+  provider: awselasticbeanstalk
+  edge: true
+  region: 'us-east-2'
+  app: 'telegram-bot'
+  bucket_name: 'elasticbeanstalk-us-east-2-405125346844'
+  bucket_path: 'telegram-bot'
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY

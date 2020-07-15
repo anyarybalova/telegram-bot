@@ -1,0 +1,12 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "name": "telegram-bot",
+      "image": "anyarybalova/telegram-bot",
+      "hostname": "telegram-bot",
+      "essential": true,
+      "memory": 128
+    }
+  ]
+}
